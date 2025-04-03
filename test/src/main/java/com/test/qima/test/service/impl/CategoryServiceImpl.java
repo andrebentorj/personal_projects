@@ -26,7 +26,6 @@ public class CategoryServiceImpl implements CategoryService {
         Category existing = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        // Atualiza apenas campos desejados
         existing.setName(category.getName());
         return categoryRepository.save(existing);
     }

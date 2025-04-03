@@ -41,7 +41,7 @@ This project allows managing products and categories, consuming the backend REST
 1. **Clone the repository:**
 
 ```bash
-git clone <your-repository>
+git clone https://github.com/andrebentorj/personal_projects.git
 cd frontend
 ```
 

@@ -3,6 +3,7 @@ package com.test.qima.test.service.impl;
 
 import com.test.qima.test.domain.Category;
 import com.test.qima.test.domain.Product;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.test.qima.test.repository.CategoryRepository;
 import com.test.qima.test.repository.ProductRepository;
@@ -14,23 +15,16 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository,
-                              CategoryRepository categoryRepository) {
-        this.productRepository = productRepository;
-        this.categoryRepository = categoryRepository;
-    }
-
     @Override
     public Product create(Product product, List<Long> categoryIds) {
-        // Se quisermos definir a data de criação agora
         product.setCreationDate(LocalDateTime.now());
 
-        // Carregar as categorias pelo ID
         Set<Category> categories = loadCategoriesByIds(categoryIds);
         product.setCategories(categories);
 
@@ -39,24 +33,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Long id, Product product, List<Long> categoryIds) {
-        Product existing = productRepository.findById(id)
+        Product productEntity = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        existing.setName(product.getName());
-        existing.setDescription(product.getDescription());
-        existing.setPrice(product.getPrice());
-        existing.setQuantityInStock(product.getQuantityInStock());
+        productEntity.setName(product.getName());
+        productEntity.setDescription(product.getDescription());
+        productEntity.setPrice(product.getPrice());
+        productEntity.setQuantityInStock(product.getQuantityInStock());
 
-        // Se quiser atualizar a data ao editar, ficaria a critério do negócio
-        // existing.setCreationDate(LocalDateTime.now()); // Normalmente não se atualiza data de criação
-
-        // Atualizar categorias
         if (categoryIds != null && !categoryIds.isEmpty()) {
             Set<Category> categories = loadCategoriesByIds(categoryIds);
-            existing.setCategories(categories);
+            productEntity.setCategories(categories);
         }
 
-        return productRepository.save(existing);
+        return productRepository.save(productEntity);
     }
 
     @Override
@@ -75,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
-    // Método utilitário para carregar categorias
+
     private Set<Category> loadCategoriesByIds(List<Long> categoryIds) {
         if (categoryIds == null || categoryIds.isEmpty()) {
             return new HashSet<>();

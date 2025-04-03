@@ -43,7 +43,7 @@ REST API developed as a solution for the technical challenge, using **Spring Boo
 1. **Clone the repository:**
 
 ```bash
-git clone <your-repository>
+git clone https://github.com/andrebentorj/personal_projects.git
 cd backend
 ```
 

@@ -23,7 +23,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    @SuppressWarnings("deprecation")
     public static NoOpPasswordEncoder passwordEncoder() {
         // Just for tests :D
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
