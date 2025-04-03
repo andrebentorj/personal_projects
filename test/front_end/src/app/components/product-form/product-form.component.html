@@ -1,0 +1,27 @@
+<h2>{{ editMode ? 'Update Product' : 'New Product' }}</h2>
+
+<form (ngSubmit)="save()" style="display: flex; flex-direction: column; gap: 16px; max-width: 500px;">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="product.name" name="name" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="product.description" name="description" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Price</mat-label>
+    <input matInput type="number" [(ngModel)]="product.price" name="price" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Quantity in Stock</mat-label>
+    <input matInput type="number" [(ngModel)]="product.quantityInStock" name="quantityInStock" required />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
+    {{ editMode ? 'Update' : 'Save' }}
+  </button>
+</form>

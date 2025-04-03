@@ -1,0 +1,12 @@
+<h2>{{ editMode ? 'Update Category' : 'New Category' }}</h2>
+
+<form (ngSubmit)="save()" style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="category.name" name="name" required />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">
+    {{ editMode ? 'Update' : 'Save' }}
+  </button>
+</form>
